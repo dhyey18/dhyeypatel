@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Gujarati:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; }
+  body { background:#f3f1ea; }
+  * { box-sizing:border-box; }
+  ::selection { background:rgba(47,125,138,0.22); }
+  @keyframes floaty { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-9px) } }
+  @keyframes blink { 0%,49%{ opacity:1 } 50%,100%{ opacity:0 } }
+</style>
+</helmet>
+<div ref="{{ setRoot }}" style="--accent:#2f7d8a; --gridc:rgba(0,0,0,0.05); --motion:running; --fdir:row; --sbdir:column; --sbw:196px; position:relative; min-height:100vh; font-family:system-ui,-apple-system,'Segoe UI',sans-serif; color:#26251f; background-color:#f3f1ea; background-image:linear-gradient(var(--gridc) 1px,transparent 1px),linear-gradient(90deg,var(--gridc) 1px,transparent 1px); background-size:34px 34px; overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px clamp(18px,4vw,52px); background:rgba(243,241,234,0.78); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #e7e3d8;">
+    <button onClick="{{ navAbout }}" style="border:none; background:none; cursor:pointer; font-family:'Space Mono',monospace; font-weight:700; font-size:15px; letter-spacing:0.02em; color:#26251f;">Dhyey&nbsp;Patel</button>
+    <div style="display:flex; align-items:center; gap:clamp(14px,2.4vw,30px); font-family:'Space Mono',monospace; font-size:13px;">
+      <button onClick="{{ navAbout }}" style="border:none; background:none; cursor:pointer; color:#57554d; font:inherit;">About</button>
+      <button onClick="{{ navWork }}" style="border:none; background:none; cursor:pointer; color:#57554d; font:inherit;">Work</button>
+      <button onClick="{{ navProjects }}" style="border:none; background:none; cursor:pointer; color:#57554d; font:inherit;">Projects</button>
+      <button onClick="{{ navPlay }}" style="border:none; background:none; cursor:pointer; color:#57554d; font:inherit;">Playground</button>
+    </div>
+  </nav>
+
+  <!-- HERO : DESKTOP COLLAGE -->
+  <sc-if value="{{ heroDesktop }}" hint-placeholder-val="{{ true }}">
+  <header style="position:relative; width:100%; max-width:1280px; height:790px; margin:0 auto; padding:0 24px;">
+
+    <!-- ID Badge -->
+    <div style="position:absolute; left:36px; top:18px; width:236px; transform:rotate(-3deg); z-index:3; animation:floaty 7s ease-in-out infinite; animation-play-state:var(--motion);">
+      <div style="width:14px; height:78px; margin:0 auto -6px; background:linear-gradient(#1f1f1d,#2c2c29); position:relative; z-index:1;"></div>
+      <div style="position:relative; background:linear-gradient(160deg,#3a3a37,#222220); border-radius:16px; padding:20px 18px 22px; box-shadow:0 26px 50px -22px rgba(0,0,0,0.55); color:#e9e7e0;">
+        <div style="width:20px; height:7px; border-radius:4px; background:#000; margin:0 auto 14px; opacity:0.5;"></div>
+        <div style="font-family:'Noto Sans Gujarati',sans-serif; font-size:30px; font-weight:700; line-height:1;">ધ્યેય પટેલ</div>
+        <div style="font-size:11.5px; color:#a8a59c; margin-top:9px; line-height:1.5;">Building scalable web apps,<br>AI platforms &amp; on-chain systems.</div>
+        <div style="width:118px; height:118px; border-radius:50%; margin:18px auto 6px; overflow:hidden; border:3px solid #4a4a46; background-image:repeating-linear-gradient(45deg,#4d4d49 0 7px,#444440 7px 14px); display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Space Mono',monospace; font-size:10px; color:#cfccc2;">[ photo ]</span>
+        </div>
+        <div style="text-align:center; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.18em; color:#8d8a82; margin-top:8px;">FULL&nbsp;·&nbsp;STACK&nbsp;·&nbsp;DEV</div>
+      </div>
+    </div>
+
+    <!-- DSA record card -->
+    <div style="position:absolute; left:78px; top:404px; width:248px; transform:rotate(2deg); z-index:2; background:#fffefb; border-radius:16px; padding:22px 22px 24px; box-shadow:0 24px 46px -24px rgba(0,0,0,0.32); border:1px solid #ece8dd;">
+      <div style="width:128px; height:128px; border-radius:50%; margin:0 auto; background:radial-gradient(circle at 50% 50%, #1a1a18 0 30%, #3a3a37 30% 31%, #1a1a18 31% 44%, #3a3a37 44% 45%, #1a1a18 45% 60%, #3a3a37 60% 61%, #1a1a18 61% 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 18px rgba(0,0,0,0.25);">
+        <div style="width:40px; height:40px; border-radius:50%; background:var(--accent,#2f7d8a); border:4px solid #fffefb;"></div>
+      </div>
+      <div style="text-align:center; margin-top:16px;">
+        <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.18em; color:#9a978c;">PROBLEMS SOLVED</div>
+        <div style="font-size:30px; font-weight:800; letter-spacing:-0.02em; margin-top:2px;">300<span style="color:var(--accent,#2f7d8a);">+</span></div>
+        <div style="font-size:12px; color:#57554d;">DSA &amp; Algorithms</div>
+        <div style="font-family:'Space Mono',monospace; font-size:10.5px; color:#b5b2a7; margin-top:6px;">and counting</div>
+      </div>
+    </div>
+
+    <!-- Yellow folder -->
+    <div style="position:absolute; left:372px; top:560px; width:150px; transform:rotate(-5deg); z-index:1; animation:floaty 9s ease-in-out infinite; animation-play-state:var(--motion);">
+      <div style="width:62px; height:13px; background:#e9b53c; border-radius:7px 7px 0 0; margin-bottom:-4px;"></div>
+      <div style="width:150px; height:100px; background:linear-gradient(160deg,#f5c84e,#edb838); border-radius:5px 10px 10px 10px; box-shadow:0 16px 30px -16px rgba(180,130,20,0.55);"></div>
+    </div>
+
+    <!-- Ticket -->
+    <div style="position:absolute; left:836px; top:34px; width:392px; transform:rotate(2deg); z-index:2; display:flex; background:#fffefb; border-radius:12px; box-shadow:0 22px 44px -24px rgba(0,0,0,0.3); border:1px solid #ece8dd; overflow:hidden;">
+      <div style="width:42px; background:#26251f; color:#cfccc2; display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.2em; transform:rotate(-90deg); white-space:nowrap;">SOFTWARE DEV</span>
+      </div>
+      <div style="flex:1; padding:16px 18px;">
+        <div style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.16em; color:#9a978c;">CURRENTLY AT</div>
+        <div style="font-size:20px; font-weight:800; letter-spacing:-0.01em; line-height:1.1; margin-top:3px;">O2H TECHNOLOGY</div>
+        <div style="font-size:12px; color:#57554d; margin-top:5px;">Software Developer · Ahmedabad</div>
+        <div style="font-family:'Space Mono',monospace; font-size:10px; color:#b5b2a7; margin-top:10px;">EST. 2026 → PRESENT</div>
+      </div>
+      <div style="width:62px; border-left:2px dashed #ddd8cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:8px 6px;">
+        <div style="width:34px; height:46px; background-image:repeating-linear-gradient(90deg,#26251f 0 2px,transparent 2px 4px);"></div>
+        <div style="font-family:'Space Mono',monospace; font-size:9px; color:#9a978c; margin-top:6px;">BLD 001</div>
+      </div>
+    </div>
+
+    <!-- Mood board (shipped builds) -->
+    <div style="position:absolute; left:944px; top:248px; width:312px; transform:rotate(2.5deg); z-index:1; background:linear-gradient(160deg,#ddc9a8,#d2bb96); border-radius:6px; padding:18px 16px 30px; box-shadow:0 24px 48px -22px rgba(120,90,40,0.4);">
+      <div style="position:relative; height:230px;">
+        <div style="position:absolute; left:4px; top:0; width:118px; transform:rotate(-5deg); background:#fff; padding:7px 7px 22px; box-shadow:0 8px 16px rgba(0,0,0,0.18);"><div style="height:96px; background-image:repeating-linear-gradient(45deg,#cfe0e2 0 8px,#bcd3d6 8px 16px);"></div></div>
+        <div style="position:absolute; right:6px; top:14px; width:118px; transform:rotate(6deg); background:#fff; padding:7px 7px 22px; box-shadow:0 8px 16px rgba(0,0,0,0.18);"><div style="height:96px; background-image:repeating-linear-gradient(45deg,#e6cfd0 0 8px,#d8bcbe 8px 16px);"></div></div>
+        <div style="position:absolute; left:54px; bottom:6px; width:118px; transform:rotate(2deg); background:#fff; padding:7px 7px 22px; box-shadow:0 8px 16px rgba(0,0,0,0.18); z-index:2;"><div style="height:96px; background-image:repeating-linear-gradient(45deg,#d3e2cf 0 8px,#c0d4bc 8px 16px);"></div></div>
+      </div>
+      <div style="position:absolute; right:18px; bottom:8px; font-family:'Caveat',cursive; font-size:30px; color:#5a4a2c; transform:rotate(-5deg);">shipped builds</div>
+    </div>
+
+    <!-- Terminal -->
+    <div style="position:absolute; left:548px; top:430px; width:384px; z-index:4; border-radius:11px; overflow:hidden; box-shadow:0 30px 60px -28px rgba(0,0,0,0.5); border:1px solid #d9d4c8;">
+      <div style="display:flex; align-items:center; gap:7px; padding:9px 13px; background:#e7e2d6; position:relative;">
+        <span style="width:11px; height:11px; border-radius:50%; background:#ff5f57;"></span>
+        <span style="width:11px; height:11px; border-radius:50%; background:#febc2e;"></span>
+        <span style="width:11px; height:11px; border-radius:50%; background:#28c840;"></span>
+        <span style="position:absolute; left:0; right:0; text-align:center; font-family:'Space Mono',monospace; font-size:11px; color:#8d8a82;">dhyey — zsh</span>
+      </div>
+      <div style="background:#1d1d1b; padding:16px 17px; min-height:170px; font-family:'Space Mono',monospace; font-size:12.5px; line-height:1.7;">
+        <sc-for list="{{ termLines }}" as="ln" hint-placeholder-count="5">
+          <div style="white-space:pre-wrap; word-break:break-word;"><span style="color:#5fd6a6;">{{ ln.p }}</span><span style="color:#e9e7e0;"> {{ ln.t }}</span><sc-if value="{{ ln.cur }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block; width:8px; height:15px; background:#5fd6a6; margin-left:2px; vertical-align:-2px; animation:blink 1s step-end infinite;"></span></sc-if></div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div style="position:absolute; left:454px; top:236px; width:430px; text-align:center; z-index:5;">
+      <div style="font-family:'Caveat',cursive; font-size:104px; font-weight:700; line-height:0.9; color:#1f1e1a;">Dhyey Patel</div>
+      <div style="font-family:'Space Mono',monospace; font-size:15px; letter-spacing:0.34em; color:#57554d; margin-top:14px;">CODE&nbsp;·&nbsp;SHIP&nbsp;·&nbsp;SCALE</div>
+    </div>
+
+  </header>
+  </sc-if>
+
+  <!-- HERO : STACKED (tablet / mobile) -->
+  <sc-if value="{{ heroStacked }}" hint-placeholder-val="{{ false }}">
+  <header style="padding:36px clamp(20px,6vw,40px) 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:22px;">
+    <div>
+      <div style="font-family:'Caveat',cursive; font-size:clamp(62px,17vw,92px); font-weight:700; line-height:0.9; color:#1f1e1a;">Dhyey Patel</div>
+      <div style="font-family:'Space Mono',monospace; font-size:clamp(11px,3.2vw,14px); letter-spacing:0.28em; color:#57554d; margin-top:12px;">CODE&nbsp;·&nbsp;SHIP&nbsp;·&nbsp;SCALE</div>
+    </div>
+    <!-- badge -->
+    <div style="width:230px; background:linear-gradient(160deg,#3a3a37,#222220); border-radius:16px; padding:20px 18px; box-shadow:0 22px 44px -22px rgba(0,0,0,0.5); color:#e9e7e0;">
+      <div style="font-family:'Noto Sans Gujarati',sans-serif; font-size:28px; font-weight:700;">ધ્યેય પટેલ</div>
+      <div style="font-size:11.5px; color:#a8a59c; margin-top:8px;">Full Stack Web Developer · 4+ yrs</div>
+      <div style="width:104px; height:104px; border-radius:50%; margin:16px auto 4px; border:3px solid #4a4a46; background-image:repeating-linear-gradient(45deg,#4d4d49 0 7px,#444440 7px 14px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Mono',monospace; font-size:10px; color:#cfccc2;">[ photo ]</span></div>
+    </div>
+    <!-- terminal -->
+    <div style="width:100%; max-width:380px; border-radius:11px; overflow:hidden; box-shadow:0 22px 44px -24px rgba(0,0,0,0.4); border:1px solid #d9d4c8; text-align:left;">
+      <div style="display:flex; align-items:center; gap:7px; padding:9px 13px; background:#e7e2d6;">
+        <span style="width:11px; height:11px; border-radius:50%; background:#ff5f57;"></span>
+        <span style="width:11px; height:11px; border-radius:50%; background:#febc2e;"></span>
+        <span style="width:11px; height:11px; border-radius:50%; background:#28c840;"></span>
+      </div>
+      <div style="background:#1d1d1b; padding:15px 16px; min-height:150px; font-family:'Space Mono',monospace; font-size:12px; line-height:1.7;">
+        <sc-for list="{{ termLines }}" as="ln" hint-placeholder-count="5">
+          <div style="white-space:pre-wrap; word-break:break-word;"><span style="color:#5fd6a6;">{{ ln.p }}</span><span style="color:#e9e7e0;"> {{ ln.t }}</span><sc-if value="{{ ln.cur }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block; width:7px; height:14px; background:#5fd6a6; margin-left:2px; vertical-align:-2px; animation:blink 1s step-end infinite;"></span></sc-if></div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; font-family:'Space Mono',monospace; font-size:11px;">
+      <span style="background:#fffefb; border:1px solid #ece8dd; border-radius:20px; padding:6px 13px;">O2H Technology</span>
+      <span style="background:#fffefb; border:1px solid #ece8dd; border-radius:20px; padding:6px 13px;">5 flagship projects</span>
+      <span style="background:#fffefb; border:1px solid #ece8dd; border-radius:20px; padding:6px 13px;">Ahmedabad, IN</span>
+    </div>
+  </header>
+  </sc-if>
+
+  <!-- ABOUT -->
+  <section id="about" style="position:relative; padding:clamp(48px,9vw,110px) clamp(20px,6vw,40px); display:flex; flex-direction:column; align-items:center; text-align:center;">
+    <div style="position:relative; width:300px; margin-bottom:54px;">
+      <div style="width:16px; height:16px; border-radius:50%; background:#1f1e1a; margin:0 auto -8px; position:relative; z-index:2; box-shadow:0 3px 6px rgba(0,0,0,0.3);"></div>
+      <div style="background:linear-gradient(160deg,#ffe07a,#fcd34d); border-radius:3px; padding:26px 24px; transform:rotate(-2deg); box-shadow:0 20px 36px -20px rgba(180,140,30,0.5); text-align:left;">
+        <div style="font-size:15px; line-height:1.6; color:#5a4a18; font-weight:500;">I care about clean architecture, scalable systems, and shipping things that actually hold up. Always in “let me build this” mode — curious, pragmatic, and fast.</div>
+      </div>
+    </div>
+    <p style="max-width:760px; font-family:'Space Mono',monospace; font-size:clamp(15px,2.4vw,20px); line-height:2; color:#26251f; margin:0;">
+      I turn ambiguous requirements into <span style="border:1px solid #d6d1c4; border-radius:5px; padding:2px 8px;">scalable systems</span> and ship with cross-functional teams at speed.
+    </p>
+    <p style="max-width:760px; font-family:'Space Mono',monospace; font-size:clamp(15px,2.4vw,20px); line-height:2; color:#26251f; margin:20px 0 0;">
+      <span style="color:var(--accent,#2f7d8a);">✦</span> I build across the stack — <span style="border:1px solid #d6d1c4; border-radius:5px; padding:2px 8px;">frontend, backend, cloud,</span> and the edge of <span style="color:var(--accent,#2f7d8a); font-weight:700;">AI &amp; blockchain.</span>
+    </p>
+  </section>
+
+  <!-- FINDER WINDOW -->
+  <section id="finder" style="padding:0 clamp(14px,4vw,40px) clamp(40px,7vw,80px); display:flex; justify-content:center;">
+    <div style="width:100%; max-width:1080px; background:#faf8f3; border:1px solid #e2ddd0; border-radius:15px; box-shadow:0 40px 80px -40px rgba(0,0,0,0.35); overflow:hidden;">
+      <div style="display:flex; align-items:center; gap:7px; padding:13px 16px; background:#efeadf; border-bottom:1px solid #e7e3d8; position:relative;">
+        <span style="width:12px; height:12px; border-radius:50%; background:#ff5f57;"></span>
+        <span style="width:12px; height:12px; border-radius:50%; background:#febc2e;"></span>
+        <span style="width:12px; height:12px; border-radius:50%; background:#28c840;"></span>
+        <span style="position:absolute; left:0; right:0; text-align:center; font-family:'Space Mono',monospace; font-size:12px; color:#8d8a82;">~/dhyey/{{ tab }}</span>
+      </div>
+      <div style="display:flex; flex-direction:var(--fdir,row);">
+        <!-- sidebar -->
+        <div style="width:var(--sbw,196px); flex-shrink:0; padding:16px 12px; border-right:1px solid #ece8dd; background:#f4f0e7;">
+          <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.16em; color:#a8a59c; padding:0 8px 8px;">FAVORITES</div>
+          <div style="display:flex; flex-direction:var(--sbdir,column); gap:4px; flex-wrap:wrap;">
+            <sc-for list="{{ sideItems }}" as="it" hint-placeholder-count="4">
+              <button onClick="{{ it.on }}" style="{{ it.style }}"><span style="width:11px; height:11px; border-radius:3px; flex-shrink:0; background:{{ it.dotColor }};"></span>{{ it.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <!-- content -->
+        <div style="flex:1; min-width:0; padding:clamp(18px,3vw,28px); min-height:540px;">
+
+          <!-- SNAPSHOT -->
+          <sc-if value="{{ isSnap }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;">
+            <div style="background:#fff; border:1px solid #ece8dd; border-top:2px dashed #cfcabd; border-radius:12px; padding:18px;">
+              <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c;">DESIGN NOTES</div>
+              <div style="display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; padding:6px;">
+                <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6"><span style="{{ c.style }}">{{ c.t }}</span></sc-for>
+              </div>
+            </div>
+            <div style="background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;">
+              <div style="align-self:flex-start; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c;">EXPERIENCE</div>
+              <svg viewBox="0 0 120 120" style="width:128px; height:128px; margin-top:12px;">
+                <circle cx="60" cy="60" r="52" fill="none" stroke="#ece8dd" stroke-width="10"></circle>
+                <circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent,#2f7d8a)" stroke-width="10" stroke-linecap="round" stroke-dasharray="290 326.7" transform="rotate(-90 60 60)"></circle>
+                <text x="60" y="56" text-anchor="middle" font-size="26" font-weight="800" fill="#26251f">4+</text>
+                <text x="60" y="74" text-anchor="middle" font-size="10" fill="#9a978c" font-family="'Space Mono',monospace">YEARS</text>
+              </svg>
+              <div style="font-size:13px; color:#57554d; margin-top:10px;">Across 3 companies</div>
+            </div>
+            <div style="background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:18px;">
+              <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c;">SKILL MIX</div>
+              <svg viewBox="0 0 248 240" style="width:100%; max-width:230px; display:block; margin:6px auto 0;">
+                <sc-for list="{{ radarRings }}" as="r" hint-placeholder-count="4"><polygon points="{{ r.p }}" fill="none" stroke="#ece8dd" stroke-width="1"></polygon></sc-for>
+                <sc-for list="{{ radarAxes }}" as="a" hint-placeholder-count="6"><line x1="124" y1="120" x2="{{ a.x }}" y2="{{ a.y }}" stroke="#ece8dd" stroke-width="1"></line><text x="{{ a.lx }}" y="{{ a.ly }}" text-anchor="{{ a.anchor }}" font-size="11" fill="#8d8a82">{{ a.lab }}</text></sc-for>
+                <polygon points="{{ radarPoly }}" fill="rgba(47,125,138,0.18)" stroke="var(--accent,#2f7d8a)" stroke-width="2"></polygon>
+              </svg>
+            </div>
+            <div style="grid-column:1 / -1; background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:20px;">
+              <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c; margin-bottom:6px;">MY JOURNEY</div>
+              <sc-for list="{{ journey }}" as="j" hint-placeholder-count="4">
+                <div style="display:flex; align-items:center; gap:14px; padding:13px 0; border-bottom:1px solid #f1ede2;">
+                  <span style="font-family:'Space Mono',monospace; font-size:11px; color:#b5b2a7; width:22px;">{{ j.n }}</span>
+                  <span style="width:9px; height:9px; border-radius:50%; flex-shrink:0; background:{{ j.dotColor }};"></span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-weight:600; font-size:14.5px;">{{ j.t }}</div>
+                    <div style="font-size:12px; color:#9a978c;">{{ j.o }} · {{ j.w }}</div>
+                  </div>
+                  <span style="{{ j.tagStyle }}">{{ j.tag }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- PROJECTS -->
+          <sc-if value="{{ isProj }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-start;">
+              <sc-for list="{{ folderCards }}" as="f" hint-placeholder-count="5">
+                <button onClick="{{ f.on }}" style="{{ f.style }}">
+                  <div style="{{ f.bodyStyle }}"><div style="{{ f.tabStyle }}"></div></div>
+                  <span style="font-size:12px; color:#57554d; max-width:108px; text-align:center; line-height:1.3;">{{ f.n }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="margin-top:24px; background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:24px;">
+              <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <span style="width:13px; height:13px; border-radius:4px; background:{{ fColor }};"></span>
+                <h3 style="margin:0; font-size:20px; font-weight:800; letter-spacing:-0.01em;">{{ fName }}</h3>
+                <sc-if value="{{ hasUrl }}" hint-placeholder-val="{{ false }}"><a href="{{ fUrl }}" target="_blank" rel="noopener" style="font-family:'Space Mono',monospace; font-size:11px; color:var(--accent,#2f7d8a); text-decoration:none; border:1px solid #d6d1c4; border-radius:20px; padding:4px 11px;">visit ↗</a></sc-if>
+              </div>
+              <div style="font-family:'Space Mono',monospace; font-size:11.5px; color:#9a978c; margin-top:12px; line-height:1.6;">{{ fTech }}</div>
+              <p style="font-size:15px; line-height:1.65; color:#3a3833; margin:14px 0 0;">{{ fDesc }}</p>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- ACHIEVEMENTS -->
+          <sc-if value="{{ isAch }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c;">IMPACT AT A GLANCE</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-top:14px;">
+              <sc-for list="{{ achStats }}" as="s" hint-placeholder-count="3">
+                <div style="background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:18px;">
+                  <div style="font-size:30px; font-weight:800; letter-spacing:-0.02em;">{{ s.n }}</div>
+                  <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.1em; color:#9a978c; margin-top:4px;">{{ s.l }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c; margin:28px 0 4px;">HIGHLIGHTS &amp; BUILDS</div>
+            <sc-for list="{{ achList }}" as="a" hint-placeholder-count="4">
+              <div style="display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px solid #f1ede2;">
+                <span style="font-family:'Space Mono',monospace; font-size:12px; color:#b5b2a7; width:34px; flex-shrink:0; padding-top:2px;">{{ a.y }}</span>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-weight:700; font-size:15.5px; display:inline;">{{ a.t }}</div>
+                  <span style="{{ a.tagStyle }}">{{ a.tag }}</span>
+                  <div style="font-size:13.5px; color:#57554d; margin-top:5px; line-height:1.55;">{{ a.d }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+
+          <!-- STACK -->
+          <sc-if value="{{ isStack }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a8a59c; margin-bottom:14px;">THE STACK</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;">
+              <sc-for list="{{ stack }}" as="s" hint-placeholder-count="5">
+                <div style="background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:18px;">
+                  <div style="display:flex; align-items:center; gap:9px;"><span style="{{ s.dot }}"></span><h4 style="margin:0; font-size:15px; font-weight:700;">{{ s.h }}</h4></div>
+                  <div style="font-family:'Space Mono',monospace; font-size:12px; color:#57554d; margin-top:11px; line-height:1.8;">{{ s.items }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#fff; border:1px solid #ece8dd; border-radius:12px; padding:18px; margin-top:14px;">
+              <div style="display:flex; align-items:center; gap:9px;"><span style="width:10px; height:10px; border-radius:3px; background:var(--accent,#2f7d8a);"></span><h4 style="margin:0; font-size:15px; font-weight:700;">Education</h4></div>
+              <div style="font-size:14px; margin-top:11px; line-height:1.6;"><strong>B.E. Information Technology</strong> — Vadodara Institute of Engineering · CGPA 8.4<br><span style="color:#57554d;">12th Science — Kerala People Education Society, Bhavnagar</span></div>
+            </div>
+          </div>
+          </sc-if>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYGROUND PINBOARD -->
+  <section id="playground" style="padding:0 clamp(14px,4vw,40px) clamp(48px,8vw,90px); display:flex; justify-content:center;">
+    <div style="width:100%; max-width:1080px; background:linear-gradient(160deg,#e0d6c2,#d4c8b0); border-radius:18px; padding:clamp(22px,4vw,40px); box-shadow:inset 0 2px 14px rgba(120,95,55,0.25), 0 30px 60px -36px rgba(0,0,0,0.3);">
+      <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.18em; color:#7a6c52; margin-bottom:22px;">PLAYGROUND · SELECTED WORK</div>
+      <div style="display:flex; flex-wrap:wrap; gap:clamp(16px,3vw,30px); justify-content:center;">
+        <sc-for list="{{ pins }}" as="p" hint-placeholder-count="5">
+          <div style="{{ p.style }}">
+            <div style="position:relative; width:204px; background:#fff; border-radius:5px; padding:10px 10px 14px; box-shadow:0 16px 30px -16px rgba(0,0,0,0.35);">
+              <div style="position:absolute; top:-7px; left:50%; transform:translateX(-50%); width:14px; height:14px; border-radius:50%; background:#cf5b52; box-shadow:0 3px 5px rgba(0,0,0,0.35);"></div>
+              <div style="height:128px; border-radius:3px; background-image:repeating-linear-gradient(45deg,#eceae3 0 9px,#e2dfd6 9px 18px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Mono',monospace; font-size:10px; color:#a8a59c;">[ screenshot ]</span></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:11px;">
+                <span style="font-weight:700; font-size:14px;">{{ p.t }}</span>
+                <span style="{{ p.tagStyle }}">{{ p.badge }}</span>
+              </div>
+              <div style="font-size:11.5px; color:#9a978c; margin-top:2px;">{{ p.s }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact" style="padding:clamp(40px,7vw,80px) clamp(20px,6vw,40px) clamp(50px,8vw,90px); display:flex; justify-content:center;">
+    <div style="width:100%; max-width:760px; text-align:center;">
+      <div style="font-family:'Caveat',cursive; font-size:clamp(48px,9vw,72px); color:#1f1e1a; line-height:0.95;">Let's build something.</div>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:28px; font-family:'Space Mono',monospace; font-size:13px;">
+        <a href="mailto:pateldhyey64@gmail.com" style="text-decoration:none; color:#26251f; background:#fffefb; border:1px solid #e2ddd0; border-radius:24px; padding:10px 18px;">pateldhyey64@gmail.com</a>
+        <a href="tel:+919429184788" style="text-decoration:none; color:#26251f; background:#fffefb; border:1px solid #e2ddd0; border-radius:24px; padding:10px 18px;">+91 94291 84788</a>
+        <a href="#" style="text-decoration:none; color:#26251f; background:#fffefb; border:1px solid #e2ddd0; border-radius:24px; padding:10px 18px;">LinkedIn ↗</a>
+        <a href="#" style="text-decoration:none; color:#26251f; background:#fffefb; border:1px solid #e2ddd0; border-radius:24px; padding:10px 18px;">GitHub ↗</a>
+      </div>
+      <div style="font-family:'Space Mono',monospace; font-size:11px; color:#a8a59c; margin-top:40px;">Ahmedabad, Gujarat, India · © 2026 Dhyey Patel</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2f7d8a&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2f7d8a&quot;,&quot;#c2603f&quot;,&quot;#5b6cc9&quot;,&quot;#3f9c6d&quot;]},&quot;gridLines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { vw: (typeof window !== 'undefined' ? window.innerWidth : 1280), tab: 'snapshot', folder: 0, ti: 0, ci: 0 };
+
+  term = [
+    { p: '~ $', t: 'whoami' },
+    { p: '',    t: 'Dhyey Patel — Full Stack Web Developer' },
+    { p: '',    t: '4+ years · 300+ DSA problems solved' },
+    { p: '~ $', t: 'ls skills/' },
+    { p: '',    t: 'frontend/  backend/  cloud/  ai-blockchain/' },
+    { p: '~ $', t: 'cat where.txt' },
+    { p: '',    t: 'Ahmedabad, Gujarat, India' },
+  ];
+  chips = [
+    { t: 'Scalable systems', c: '#d9b06a' },
+    { t: 'AI-native', c: '#cf8a86' },
+    { t: 'Problem-solver', c: '#7fb389' },
+    { t: 'System design', c: '#7ba7c9' },
+    { t: 'Ship fast', c: '#a995cf' },
+    { t: 'Detail-focused', c: '#2f7d8a' },
+  ];
+  journey = [
+    { n: '01', t: 'Web Trainee', o: 'Third Rock Techkno', w: 'Jan – Jun 2022', tag: 'START' },
+    { n: '02', t: 'Jr. Programmer Analyst', o: 'Third Rock Techkno', w: 'Jul 2022 – Nov 2024', tag: 'GROW' },
+    { n: '03', t: 'Software Developer', o: 'Growexx', w: 'Nov 2024 – Jan 2026', tag: 'SCALE' },
+    { n: '04', t: 'Software Developer', o: 'O2h Technology', w: 'Jan 2026 – Present', tag: 'NOW', now: true },
+  ];
+  folders = [
+    { n: 'thekiss.art', c: '#7ba7c9', tech: 'Next.js · Node.js · Web3 · Smart Contracts · NFT · AWS', d: 'Blockchain & NFT digital-art platform focused on NFT minting, wallet integration, and scalable on-chain operations. Built frontend features and backend APIs for NFT workflows.', url: 'https://thekiss.art' },
+    { n: 'FirmProfit', c: '#d9b06a', tech: 'NestJS · Next.js · gRPC · PostgreSQL · MongoDB · Java · Spring Boot · AWS', d: 'AI-powered workflow automation & management platform built on distributed microservices with gRPC communication between services.', url: '' },
+    { n: 'NINS Digital Collections', c: '#7fb389', tech: 'Vue.js · React · Node · Express · MongoDB · Elasticsearch · AWS Textract', d: 'A digital library & image repository for resource sharing among scholars — OCR via AWS Textract and scalable search powered by Elasticsearch.', url: '' },
+    { n: 'riyo.ai', c: '#cf8a86', tech: 'Next.js · NestJS · AWS Lambda · OpenAI · LangChain · Pinecone · Firebase', d: 'An all-in-one sales & marketing platform with AI-powered automation and real-time communication, plus Pinecone vector search.', url: 'https://riyo.ai' },
+    { n: 'Newman Review', c: '#a995cf', tech: 'Gatsby · Strapi · MySQL · Algolia · GraphQL', d: 'Scalable content management features with Algolia-powered search integration.', url: '' },
+  ];
+  achStats = [
+    { n: '300+', l: 'DSA / ALGO PROBLEMS' },
+    { n: '4+', l: 'YEARS EXPERIENCE' },
+    { n: '5', l: 'FLAGSHIP PROJECTS' },
+  ];
+  achList = [
+    { y: '2026', t: 'Enterprise & Blockchain Platforms', d: 'Scalable apps with React, Next.js, NestJS, Java & Spring Boot, plus smart-contract / Web3 integrations at O2h Technology.', tag: 'WORK' },
+    { y: '2024', t: 'AI-Powered Features', d: 'Integrated OpenAI, LangChain & Pinecone vector search into production platforms at Growexx.', tag: 'AI' },
+    { y: '2022', t: 'Microservices & gRPC', d: 'Designed distributed systems with gRPC communication and optimized PostgreSQL / MongoDB / Elasticsearch queries.', tag: 'ARCH' },
+    { y: '∞', t: '300+ DSA / Algorithms', d: 'Strong problem-solving foundation across data structures & algorithms.', tag: 'DSA' },
+  ];
+  stack = [
+    { h: 'Frontend', items: 'React · Next.js · Angular · Vue · Gatsby · TypeScript · Tailwind · SCSS · Bootstrap', c: '#7ba7c9' },
+    { h: 'Backend', items: 'Node · Express · NestJS · Java · Spring Boot · Strapi · REST · GraphQL · gRPC', c: '#d9b06a' },
+    { h: 'Databases & Search', items: 'MongoDB · PostgreSQL · MySQL · Firebase · Elasticsearch · Pinecone · Algolia', c: '#7fb389' },
+    { h: 'Cloud & DevOps', items: 'Docker · Kubernetes · AWS · Lambda · CI/CD · Git', c: '#cf8a86' },
+    { h: 'AI & Blockchain', items: 'LangChain · OpenAI · Vector DBs · Smart Contracts · NFT · Web3', c: '#a995cf' },
+  ];
+  pins = [
+    { t: 'thekiss.art', s: 'NFT · Web3 · Smart Contracts', c: '#7ba7c9', badge: 'WEB3', r: '-3deg' },
+    { t: 'riyo.ai', s: 'AI automation · Vector search', c: '#cf8a86', badge: 'AI', r: '2deg' },
+    { t: 'FirmProfit', s: 'gRPC · Microservices', c: '#d9b06a', badge: 'ARCH', r: '-2deg' },
+    { t: 'NINS Collections', s: 'OCR · Elasticsearch', c: '#7fb389', badge: 'SEARCH', r: '3deg' },
+    { t: 'Newman Review', s: 'Gatsby CMS · Algolia', c: '#a995cf', badge: 'CMS', r: '-4deg' },
+  ];
+  radarAxes = ['Frontend', 'Backend', 'Cloud', 'AI', 'Blockchain', 'DSA'];
+  radarVals = [0.95, 0.92, 0.82, 0.85, 0.7, 0.9];
+
+  pill(bg, fg) {
+    return { fontSize: '10px', fontWeight: '700', padding: '3px 8px', borderRadius: '5px', letterSpacing: '0.06em', background: bg, color: fg, marginLeft: '8px', whiteSpace: 'nowrap', flexShrink: 0 };
+  }
+
+  setRoot = (el) => { this.rootEl = el; this.applyVars(); };
+
+  applyVars() {
+    const r = this.rootEl; if (!r) return;
+    const m = this.state.vw < 760;
+    r.style.setProperty('--accent', this.props.accent || '#2f7d8a');
+    r.style.setProperty('--gridc', this.props.gridLines === false ? 'transparent' : 'rgba(0,0,0,0.05)');
+    r.style.setProperty('--motion', this.props.reduceMotion ? 'paused' : 'running');
+    r.style.setProperty('--fdir', m ? 'column' : 'row');
+    r.style.setProperty('--sbdir', m ? 'row' : 'column');
+    r.style.setProperty('--sbw', m ? '100%' : '196px');
+  }
+
+  componentDidMount() {
+    this.applyVars();
+    this._r = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._r);
+    if (this.props.reduceMotion) {
+      this.setState({ ti: this.term.length, ci: 0 });
+    } else {
+      this._t = setInterval(() => {
+        this.setState(s => {
+          if (s.ti >= this.term.length) { clearInterval(this._t); return null; }
+          const ln = this.term[s.ti].t;
+          if (s.ci >= ln.length) return { ti: s.ti + 1, ci: 0 };
+          return { ci: s.ci + 1 };
+        });
+      }, 42);
+    }
+  }
+  componentDidUpdate() { this.applyVars(); }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); clearInterval(this._t); }
+
+  scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
+  }
+  navTab = (tab) => { this.setState({ tab }); setTimeout(() => this.scrollTo('finder'), 70); };
+
+  renderVals() {
+    const vw = this.state.vw;
+    const heroStacked = vw < 1180;
+
+    // terminal
+    const done = this.state.ti >= this.term.length;
+    const lines = [];
+    for (let i = 0; i < this.term.length; i++) {
+      if (done || i < this.state.ti) {
+        lines.push({ p: this.term[i].p, t: this.term[i].t, cur: done && i === this.term.length - 1 });
+      } else if (i === this.state.ti) {
+        lines.push({ p: this.term[i].p, t: this.term[i].t.slice(0, this.state.ci), cur: true });
+        break;
+      }
+    }
+
+    // radar
+    const cx = 124, cy = 120, R = 84, N = this.radarAxes.length;
+    const pt = (i, s) => {
+      const a = (-90 + i * 360 / N) * Math.PI / 180;
+      return [Math.round((cx + R * s * Math.cos(a)) * 10) / 10, Math.round((cy + R * s * Math.sin(a)) * 10) / 10];
+    };
+    const radarPoly = this.radarVals.map((v, i) => pt(i, v).join(',')).join(' ');
+    const radarRings = [0.25, 0.5, 0.75, 1].map(s => ({ p: this.radarAxes.map((_, i) => pt(i, s).join(',')).join(' ') }));
+    const radarAxes = this.radarAxes.map((lab, i) => {
+      const [x, y] = pt(i, 1);
+      const [lx, ly0] = pt(i, 1.2);
+      const anchor = Math.abs(lx - cx) < 6 ? 'middle' : (lx > cx ? 'start' : 'end');
+      const ly = ly0 < cy - 6 ? ly0 - 2 : (Math.abs(ly0 - cy) < 8 ? ly0 + 4 : ly0 + 9);
+      return { x, y, lx, ly, lab, anchor };
+    });
+
+    // sidebar
+    const items = [['snapshot', 'Snapshot', '#2f7d8a'], ['projects', 'Projects', '#d9b06a'], ['achievements', 'Achievements', '#cf8a86'], ['stack', 'Stack', '#7fb389']];
+    const sideItems = items.map(([k, label, dotColor]) => {
+      const active = this.state.tab === k;
+      return {
+        k, label, dotColor,
+        on: () => this.navTab(k),
+        style: { display: 'flex', alignItems: 'center', gap: '9px', padding: '8px 11px', borderRadius: '7px', cursor: 'pointer', border: 'none', textAlign: 'left', font: 'inherit', fontSize: '13.5px', whiteSpace: 'nowrap', color: active ? '#26251f' : '#6a6860', background: active ? 'rgba(0,0,0,0.06)' : 'transparent', fontWeight: active ? '600' : '500' },
+      };
+    });
+
+    // chips
+    const chips = this.chips.map((ch, i) => ({
+      t: ch.t,
+      style: { display: 'inline-block', background: ch.c, color: '#fff', fontSize: '12.5px', fontWeight: '600', padding: '6px 13px', borderRadius: '20px', transform: 'rotate(' + (i % 2 ? 1.6 : -1.6) + 'deg)', boxShadow: '0 2px 7px rgba(0,0,0,0.13)', whiteSpace: 'nowrap' },
+    }));
+
+    // journey
+    const journey = this.journey.map(j => ({
+      ...j,
+      dotColor: j.now ? '#3f9c6d' : '#cfccc2',
+      tagStyle: this.pill(j.now ? '#3f9c6d' : 'rgba(0,0,0,0.05)', j.now ? '#fff' : '#9a978c'),
+    }));
+
+    // folders
+    const folder = this.folders[this.state.folder] || this.folders[0];
+    const folderCards = this.folders.map((f, i) => ({
+      n: f.n,
+      on: () => this.setState({ folder: i }),
+      style: { cursor: 'pointer', border: 'none', background: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '9px', padding: '12px 8px', borderRadius: '10px', width: '128px', font: 'inherit', outline: i === this.state.folder ? '2px solid var(--accent,#2f7d8a)' : '2px solid transparent', outlineOffset: '1px' },
+      bodyStyle: { width: '92px', height: '68px', borderRadius: '9px', background: f.c, position: 'relative', boxShadow: 'inset 0 -16px 0 rgba(0,0,0,0.07)' },
+      tabStyle: { position: 'absolute', top: '-7px', left: '11px', width: '34px', height: '11px', borderRadius: '6px 6px 0 0', background: f.c },
+    }));
+
+    // achievements
+    const achList = this.achList.map(a => ({ ...a, tagStyle: this.pill('rgba(217,176,106,0.22)', '#9a7a32') }));
+
+    // stack
+    const stack = this.stack.map(s => ({ h: s.h, items: s.items, dot: { width: '11px', height: '11px', borderRadius: '3px', background: s.c, flexShrink: 0 } }));
+
+    // pins
+    const pins = this.pins.map(p => ({
+      t: p.t, s: p.s, badge: p.badge,
+      style: { transform: 'rotate(' + p.r + ')' },
+      tagStyle: { background: p.c, color: '#fff', fontSize: '9.5px', fontWeight: '700', padding: '2px 7px', borderRadius: '10px', letterSpacing: '0.05em', whiteSpace: 'nowrap' },
+    }));
+
+    return {
+      setRoot: this.setRoot,
+      heroDesktop: !heroStacked, heroStacked,
+      navAbout: () => this.scrollTo('about'),
+      navWork: () => this.navTab('snapshot'),
+      navProjects: () => this.navTab('projects'),
+      navPlay: () => this.scrollTo('playground'),
+      termLines: lines,
+      chips, journey, sideItems, stack, pins,
+      achStats: this.achStats, achList,
+      radarPoly, radarRings, radarAxes,
+      tab: this.state.tab,
+      isSnap: this.state.tab === 'snapshot',
+      isProj: this.state.tab === 'projects',
+      isAch: this.state.tab === 'achievements',
+      isStack: this.state.tab === 'stack',
+      folderCards,
+      fName: folder.n, fTech: folder.tech, fDesc: folder.d, fColor: folder.c, fUrl: folder.url, hasUrl: !!folder.url,
+    };
+  }
+}
+</script>
+</body>
+</html>
